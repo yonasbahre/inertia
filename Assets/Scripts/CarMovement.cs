@@ -17,21 +17,21 @@ public class CarMovement : MonoBehaviour
 
     public float rotationForce = 0.1f;
 
-    void Update()
+    void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.W) && rigidbody.velocity.z < 50) 
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && rigidbody.velocity.z < 50) 
         {
             rigidbody.AddForce(accelForce * transform.forward);
         }
-        if (Input.GetKey(KeyCode.S) && rigidbody.velocity.z > -10)
+        if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && rigidbody.velocity.z > -10)
         {
             rigidbody.AddForce(-brakeForce * transform.forward);
         }
-        if (Input.GetKey(KeyCode.A) && rigidbody.velocity.z != 0)
+        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && rigidbody.velocity.z != 0)
         {
             transform.Rotate(-rotationForce * Vector3.up);
         }
-        if (Input.GetKey(KeyCode.D) && rigidbody.velocity.z != 0)
+        if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && rigidbody.velocity.z != 0)
         {
             transform.Rotate(rotationForce * Vector3.up);
         }
