@@ -6,9 +6,16 @@ public class CheckpointManager : MonoBehaviour
 {
     public Checkpoint startCheckpoint;
     public Checkpoint finalCheckpoint;
-    private Checkpoint prevCheckpoint;
+
+    [HideInInspector]
+    public Checkpoint prevCheckpoint;
     
     public void Start()
+    {
+        Reset();
+    }
+
+    public void Reset()
     {
         prevCheckpoint = startCheckpoint;
     }

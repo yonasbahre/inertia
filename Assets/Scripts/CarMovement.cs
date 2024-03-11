@@ -18,18 +18,25 @@ public class CarMovement : MonoBehaviour
 
     public float rotationForce = 0.1f;
 
+    public float maxSpeed = 50.0f;
+
+    public float maxReverseSpeed = 10.0f;
+
+    [HideInInspector]
+    public bool canMove = false;
+
     void FixedUpdate()
     {
-        if (numberOfRoadsCollidedWith <= 0)
+        if (!canMove || numberOfRoadsCollidedWith <= 0)
         {
             return;
         }
 
-        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && rigidbody.velocity.z < 50) 
+        if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && rigidbody.velocity.z < maxSpeed) 
         {
             rigidbody.AddForce(accelForce * transform.forward);
         }
-        if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && rigidbody.velocity.z > -10)
+        if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && rigidbody.velocity.z > -maxReverseSpeed)
         {
             rigidbody.AddForce(-brakeForce * transform.forward);
         }

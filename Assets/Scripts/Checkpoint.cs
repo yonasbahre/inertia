@@ -11,7 +11,7 @@ public class Checkpoint : MonoBehaviour
     [HideInInspector]
     public Transform spawnPoint;
 
-    void Start()
+    void Awake()
     {
         spawnPoint = transform.Find("SpawnPoint");
     }
