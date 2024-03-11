@@ -5,6 +5,7 @@ using UnityEngine;
 public class CarMovement : MonoBehaviour
 {
     private Rigidbody rigidbody;
+    private int numberOfRoadsCollidedWith = 0;
 
     void Start()
     {
@@ -19,6 +20,11 @@ public class CarMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (numberOfRoadsCollidedWith <= 0)
+        {
+            return;
+        }
+
         if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && rigidbody.velocity.z < 50) 
         {
             rigidbody.AddForce(accelForce * transform.forward);
@@ -34,6 +40,22 @@ public class CarMovement : MonoBehaviour
         if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && rigidbody.velocity.z != 0)
         {
             transform.Rotate(rotationForce * Vector3.up);
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Road")
+        {
+            numberOfRoadsCollidedWith++;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Road")
+        {
+            numberOfRoadsCollidedWith--;
         }
     }
 }
