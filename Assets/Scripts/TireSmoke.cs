@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,11 @@ using UnityEngine;
 public class TireSmoke : MonoBehaviour
 {
     public Rigidbody playerCar;
+    public CarMovement movement;
+
+    public ParticleSystem particlesLeftTire;
+    public ParticleSystem particlesRightTire;
     
-    void Start()
-    {
-        
-    }
 
     void Update()
     {
@@ -18,6 +19,22 @@ public class TireSmoke : MonoBehaviour
             playerCar.gameObject.transform.forward
         );
 
-        Debug.Log("Angle: " + driftAngle);
+        float intensity = SmokeIntensity(driftAngle);
+
+        var emissionsLeft = particlesLeftTire.emission;
+        emissionsLeft.rateOverTime = intensity;
+        emissionsLeft.rateOverDistance = 0.5f * intensity;
+
+        var emissionsRight = particlesRightTire.emission;
+        emissionsRight.rateOverTime = intensity;
+        emissionsRight.rateOverDistance = 0.5f * intensity;
+    }
+
+    private float SmokeIntensity(float driftAngle)
+    {
+        float factor = movement.numberOfRoadsCollidedWith > 0 ? 15.0f : 0.0f;
+        float biasDegrees = -15.0f;
+
+        return factor * Math.Min(1.0f, ((driftAngle + biasDegrees)/ 90.0f));
     }
 }

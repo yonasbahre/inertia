@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,8 @@ public class CheckpointManager : MonoBehaviour
 
     [HideInInspector]
     public Checkpoint prevCheckpoint;
+
+    public static System.Action WinGameEvent;
     
     public void Start()
     {
@@ -36,13 +39,12 @@ public class CheckpointManager : MonoBehaviour
             checkpoint == finalCheckpoint &&
             (prevCheckpoint.nextCheckpoint == null || prevCheckpoint.nextCheckpoint == checkpoint)
         ) {
-            Debug.Log("You win!");  // TODO: activate win screen
+            WinGameEvent?.Invoke();
         }
 
         if (checkpoint == prevCheckpoint.nextCheckpoint) 
         {
             prevCheckpoint = checkpoint;
-            Debug.Log("Advancing Checkpoint!");
         }
     }
 }

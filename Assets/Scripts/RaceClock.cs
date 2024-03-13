@@ -7,7 +7,7 @@ public class RaceClock : MonoBehaviour
 {
     public TMP_Text clockUi;
     
-    private float currTime = 0.0f;
+    public float currTime = 0.0f;
     private bool stopped = false;
 
     void Update()

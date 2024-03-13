@@ -5,7 +5,7 @@ using UnityEngine;
 public class CarMovement : MonoBehaviour
 {
     private Rigidbody rigidbody;
-    private int numberOfRoadsCollidedWith = 0;
+    public int numberOfRoadsCollidedWith = 0;
 
     void Start()
     {
