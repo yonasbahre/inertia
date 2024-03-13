@@ -6,6 +6,8 @@ public class GhostController : MonoBehaviour
 {
     
     public GameObject ghostCar;
+    public GhostWheelRotation wheelRotation;
+
     private GhostRecord record;
     private bool paused = true;
     private int currFrame = 0;
@@ -23,6 +25,14 @@ public class GhostController : MonoBehaviour
         
         ghostCar.transform.position = record.positions[currFrame];
         ghostCar.transform.rotation = record.rotations[currFrame];
+        
+        if (wheelRotation && currFrame > 0)
+        {
+            wheelRotation.Rotate(
+                record.positions[currFrame],
+                record.positions[currFrame - 1]
+            );
+        }
 
         currFrame++;
     }
