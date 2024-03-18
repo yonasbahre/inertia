@@ -4,5 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/StartScene.unity
+    guid: afd2ae6583ce03341bb1ac497a64f157
+  - enabled: 1
+    path: Assets/Scenes/GhostSelectScene.unity
+    guid: 656d917234639bb48a8cf8cc3c144d55
+  - enabled: 1
+    path: Assets/Scenes/Track1.unity
+    guid: 5c1deba145acf3041842df8c5c2e25cd
+  - enabled: 1
+    path: Assets/Scenes/WinScene.unity
+    guid: bc0b5f5e09f0a2340af19e6047be6b78
+  - enabled: 1
+    path: Assets/Scenes/ControlsScene.unity
+    guid: 21f39f93c7d87ea48b946b6e178a2ac1
   m_configObjects: {}

@@ -5,6 +5,8 @@ using UnityEngine;
 public class CarMovement : MonoBehaviour
 {
     private Rigidbody rigidbody;
+    public EngineSound engineSound;
+
     public int numberOfRoadsCollidedWith = 0;
 
     void Start()
@@ -24,6 +26,10 @@ public class CarMovement : MonoBehaviour
 
     [HideInInspector]
     public bool canMove = false;
+    
+    public float correctionFactor = 0.001f;
+
+    private int lastDirection = 1;
 
     void FixedUpdate()
     {
@@ -35,10 +41,25 @@ public class CarMovement : MonoBehaviour
         if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) && rigidbody.velocity.z < maxSpeed) 
         {
             rigidbody.AddForce(accelForce * transform.forward);
+            engineSound.IncreaseVolume();
+
+            // No idea why this works, but car won't accelerate in a straight line properly without this
+            transform.Rotate(lastDirection * correctionFactor * -rotationForce * Vector3.up);
+            lastDirection *= -1;
         }
+        else
+        {
+            engineSound.DecreaseVolume();
+        }
+
         if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && rigidbody.velocity.z > -maxReverseSpeed)
         {
             rigidbody.AddForce(-brakeForce * transform.forward);
+            engineSound.DecreaseVolume();
+
+            // No idea why this works, but car won't accelerate in a straight line properly without this
+            transform.Rotate(lastDirection * correctionFactor * -rotationForce * Vector3.up);
+            lastDirection *= -1;
         }
         if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && rigidbody.velocity.z != 0)
         {

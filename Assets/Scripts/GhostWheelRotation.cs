@@ -18,7 +18,7 @@ public class GhostWheelRotation : MonoBehaviour
     {
         tires = new List<Transform>{frontLeft, frontRight, backLeft, backRight};
         float diameter = frontLeft.GetComponent<Renderer>().bounds.size.z;
-        circumference = diameter * Mathf.PI;
+        circumference = Mathf.Abs(diameter) * Mathf.PI;
     }
 
 
@@ -26,11 +26,11 @@ public class GhostWheelRotation : MonoBehaviour
     {
         Vector3 diff = currPosition - prevPosition;
         float rotationAmount = 
-            360 * rotationSpeedFactor * (diff.magnitude / circumference);
+            360 * rotationSpeedFactor * (Mathf.Abs(diff.magnitude) / circumference);
 
         foreach (Transform tire in tires)
         {            
-            tire.eulerAngles += new Vector3(-rotationAmount, 0, 0);
+            tire.rotation *= Quaternion.AngleAxis(rotationAmount, Vector3.left);
         }
     }
 }

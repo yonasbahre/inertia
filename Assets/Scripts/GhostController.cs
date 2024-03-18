@@ -12,6 +12,13 @@ public class GhostController : MonoBehaviour
     private bool paused = true;
     private int currFrame = 0;
 
+    private GhostTireSmoke tireSmoke;
+
+    void Awake()
+    {
+        tireSmoke = ghostCar.GetComponent<GhostTireSmoke>();
+    }
+
     void FixedUpdate()
     {
         if (paused || record == null)
@@ -29,6 +36,14 @@ public class GhostController : MonoBehaviour
         if (wheelRotation && currFrame > 0)
         {
             wheelRotation.Rotate(
+                record.positions[currFrame],
+                record.positions[currFrame - 1]
+            );
+        }
+
+        if (tireSmoke && currFrame > 0)
+        {
+            tireSmoke.GenerateSmoke(
                 record.positions[currFrame],
                 record.positions[currFrame - 1]
             );

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEditorInternal;
+using UnityEngine.SceneManagement;
 
 public class RaceManager : MonoBehaviour
 {
@@ -17,7 +17,6 @@ public class RaceManager : MonoBehaviour
     public TMP_Text countdownUi;
 
     private bool countdownInProgress = true;
-    private string GHOST_RECORD_KEY = "bestlap";
     
     void Start()
     {
@@ -45,8 +44,7 @@ public class RaceManager : MonoBehaviour
         ghostController.Reset();
         ghostRecorder.Reset();
 
-        GhostRecord record = GhostRecord.LoadFromPrefs(GHOST_RECORD_KEY);
-        ghostController.SetRecord(record);
+        ghostController.SetRecord(GhostRecordStore.record);
 
         countdownUi.gameObject.SetActive(true);
         StartCoroutine(RunCountdownTimer());
@@ -89,7 +87,9 @@ public class RaceManager : MonoBehaviour
 
         ghostController.Pause();
         ghostRecorder.FinishLap(clock.currTime);
-        ghostRecorder.record.SaveToPrefs(GHOST_RECORD_KEY);
+        GhostRecordStore.lastRaceRecord = ghostRecorder.record;
+
+        SceneManager.LoadScene("WinScene");
     }
 
     public void OnEnable()

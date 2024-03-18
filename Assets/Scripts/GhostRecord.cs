@@ -37,7 +37,10 @@ public class GhostRecord
     }
 
     public static GhostRecord FromJson(string json)
-    {
+    {        
+        if (json == "null")
+            return null;
+
         GhostRecord record = null;
 
         try 
@@ -47,6 +50,7 @@ public class GhostRecord
         } 
         catch (Exception e)
         {
+            Debug.Log("## Loading JSON Prefs failed!");
             Debug.LogException(e);
         }
 

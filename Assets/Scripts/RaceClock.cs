@@ -35,7 +35,7 @@ public class RaceClock : MonoBehaviour
         stopped = true;
     }
 
-    private string FormatTime(float time)
+    public static string FormatTime(float time)
     {
         System.TimeSpan timeSpan = System.TimeSpan.FromSeconds(time);
 
